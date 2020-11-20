@@ -1,8 +1,24 @@
 # Use https://api.stackexchange.com
 
-For Question endpoit:
-/2.2/questions?order=desc&sort=activity&site=stackoverflow
+import requests
+import json
+
+response = requests.get('http://api.stackexchange.com/2.2/questions?order=desc&sort=activity&site=stackoverflow')
+
+print(response)
+print('\n\n')
+print(response.json())
+print('\n\n')
+print(response.json()['items'])
+print('\n\n')
 
 
-# Read More
-https://api.stackexchange.com/docs/questions#order=desc&sort=activity&filter=default&site=stackoverflow&run=true
+for question in response.json()['items']:
+    if question['answer_count'] > 1:
+        print(question['answer_count'])
+        print(question['title'])
+        print(question['link'])
+    else:
+        print('Skipped')
+    print()
+        
